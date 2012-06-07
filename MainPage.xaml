@@ -21,13 +21,13 @@
         </Grid.ColumnDefinitions>
 
         <!--Camera viewfinder >-->
-        <Rectangle Width="223" HorizontalAlignment="Left" Margin="136,79,0,544">
+        <Rectangle Width="223" HorizontalAlignment="Left" Margin="136,79,0,544" Name="rect1">
             <Rectangle.Fill>
                 <VideoBrush x:Name="viewfinderBrush" />
             </Rectangle.Fill>
 
         </Rectangle>
-        <Canvas Height="228" HorizontalAlignment="Left" Margin="66,314,0,0" Name="canvas1" VerticalAlignment="Top" Width="368" Background="White" />
+        <Canvas Height="300" HorizontalAlignment="Left" Margin="66,314,0,0" Name="canvas1" VerticalAlignment="Top" Width="368" Background="White" />
         <!--Overlay for the viewfinder region to display grayscale WriteableBitmap objects-->
         <!--Button StackPanel to the right of viewfinder>-->
         <!--Used for debugging >-->

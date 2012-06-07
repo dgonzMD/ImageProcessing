@@ -148,7 +148,7 @@ namespace ImageProcessing
 
               pauseFramesEvent.WaitOne();
               phCam.GetPreviewBufferArgb32(ARGBPx);
-              Globals.x1[0] = (ARGBPx[ARGBPx.Length>>1]>>16)&0xFF;
+              Globals.x1[0] = (ARGBPx[(int)rect1.Width*(((int)rect1.Height+1)/2)]>>16)&0xFF;
               canvas1.Children.Clear();
               for (int i = Globals.n1 - 2; i >= 0; i--)
               {
