@@ -148,7 +148,17 @@ namespace ImageProcessing
 
               pauseFramesEvent.WaitOne();
               phCam.GetPreviewBufferArgb32(ARGBPx);
-              Globals.x1[0] = ARGBPx[ARGBPx.Length>>1];
+              Globals.x1[0] = (ARGBPx[ARGBPx.Length>>1]>>16)&0xFF;
+
+              for (int i = Globals.n1 - 2; i >= 0; i--)
+              {
+                  Line line = new Line() { X1 = i+1, Y1 = 255-Globals.x1[i+1], 
+                                           X2 = i, Y2 = 255-Globals.x1[i] };
+                  line.Stroke = new SolidColorBrush(Colors.Black);
+                  line.StrokeThickness = 4;
+                  line.StrokeStartLineCap = PenLineCap.Round;
+                  this.canvas1.Children.Add(line);
+              }
 
               Globals.lpf();
           }

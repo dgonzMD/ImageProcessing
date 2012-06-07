@@ -15,10 +15,10 @@ namespace ImageProcessing
     public static class Globals
     {
         public static long tickCount=0;
-        public const int n1 = 13;
-        public const int n2 = 33;
-        public const int n3 = 5;
-        public const int n4 = 32;
+        public static int n1 = 368;
+        public static int n2 = 33;
+        public static int n3 = 5;
+        public static int n4 = 32;
 
         public static int[] x1 = new int[n1];  		//signal. Sampling period=5ms
         public static int[] x2 = new int[3];    		//lpf output
