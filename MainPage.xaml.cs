@@ -43,7 +43,8 @@ namespace ImageProcessing
 
                 //Set the VideoBrush source to the camera
                 viewfinderBrush.SetSource(cam);
-             
+                viewfinderBrush.RelativeTransform = new CompositeTransform() { CenterX = 0.5, CenterY = 0.5, Rotation = 90 };
+
             }
             else
             {
