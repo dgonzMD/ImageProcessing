@@ -57,6 +57,9 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
+    <Reference Include="Visiblox.Charts">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Visiblox\Visiblox Charts v2.3.5\Ultimate\WP7\Visiblox.Charts.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">

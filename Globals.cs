@@ -53,7 +53,7 @@ namespace ImageProcessing
             for (int i = n2 - 1; i > 0; i--)
                 y2[i] = y2[i - 1];
             y2[0] = (x2[0] >> 5);
-            MainPage.graph();
+            //MainPage.graph();
             integration();
         }
 

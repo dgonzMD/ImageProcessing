@@ -146,31 +146,38 @@ namespace ImageProcessing
               });
           }
   */
+        int[] ARGBPx = new int[640 * 480];
+        double r = 0;
         private void callback(object sender, EventArgs e)
         {
-              //cam.Focus();
-              Globals.tickCount += 5 ;
+              cam.FocusAtPoint(r, r);
+              r = 1 - r;
+              cam.Focus();
 
+              Globals.tickCount += 5 ;
+              if (Globals.tickCount % 50 == 0)
+              {
+                  System.Diagnostics.Debug.WriteLine(st.ElapsedMilliseconds/50);
+                  st.Reset();
+                  st.Start();
+              }
 
               PhotoCamera phCam = (PhotoCamera)cam;
-              //int[] ARGBPx = new int[(int)cam.PreviewResolution.Width * (int)cam.PreviewResolution.Height];
             
-             int[] ARGBPx = new int[640*480];
-
-             for (int i = Globals.n1 - 1; i > 0; i--)
+              for (int i = Globals.n1 - 1; i > 0; i--)
                   Globals.x1[i] = Globals.x1[i - 1];
 
-              pauseFramesEvent.WaitOne();
+              //pauseFramesEvent.WaitOne();
               phCam.GetPreviewBufferArgb32(ARGBPx);
               Globals.x1[0] = (ARGBPx[(int)rect1.Width*(((int)rect1.Height+1)/2)]>>16)&0xFF;
 
-              Globals.lpf();
+              //Globals.lpf();
           }
 
          public static void graph()
          {
              Globals.canvas2.Children.Clear();
-             for (int i = Globals.n2 - 2; i >= 0; i--)
+             for (int i = (int)Globals.canvas2.Width/5/*Globals.n2 - 2*/; i >= 0; i--)
              {
                  Line line = new Line()
                  {
@@ -180,7 +187,7 @@ namespace ImageProcessing
                      Y2 = 255 - Globals.y2[i]/2
                  };
                  line.Stroke = new SolidColorBrush(Colors.Red);
-                 line.StrokeThickness = 1;
+                 line.StrokeThickness = 4;
                  line.StrokeStartLineCap = PenLineCap.Round;
                  Globals.canvas2.Children.Add(line);
              }
