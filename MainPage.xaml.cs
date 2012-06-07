@@ -14,6 +14,7 @@ using Microsoft.Devices;
 using System.Windows.Media.Imaging;
 using System.Threading;
 using System.Windows.Threading;
+using System.Diagnostics;
 
 namespace ImageProcessing
 {
@@ -24,19 +25,21 @@ namespace ImageProcessing
         private static ManualResetEvent pauseFramesEvent = new ManualResetEvent(true);
  //       private WriteableBitmap wb;
 //        private bool pumpARGBFrames;
+        Stopwatch st;
 
         public MainPage()
         {
             InitializeComponent();
             Globals.canvas2 = canvas1;
 
-            canvas1.Background = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            st = new Stopwatch();
+            st.Start();
 
+            canvas1.Background = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-           
             // Check to see if the camera is available on the device.
             if ((PhotoCamera.IsCameraTypeSupported(CameraType.Primary) == true) ||
                  (PhotoCamera.IsCameraTypeSupported(CameraType.FrontFacing) == true))
@@ -46,8 +49,6 @@ namespace ImageProcessing
                 
                 //Event is fired when the PhotoCamera object has been initialized
                 cam.Initialized += new EventHandler<Microsoft.Devices.CameraOperationCompletedEventArgs>(cam_Initialized);
-
-                
 
                 //Set the VideoBrush source to the camera
                 viewfinderBrush.SetSource(cam);
@@ -59,12 +60,6 @@ namespace ImageProcessing
             else
             {
                 // The camera is not supported on the device.
-    //          txtDebug.Text = "A Camera is not available on this device.";
-
-
-                // Disable UI.
- //               GrayscaleOnButton.IsEnabled = false;
- //               GrayscaleOffButton.IsEnabled = false;
             }
            
         }
@@ -90,7 +85,10 @@ namespace ImageProcessing
                 timer.Start();
             });
 
-            cam.FlashMode = FlashMode.On;
+            if (!cam.IsFlashModeSupported(FlashMode.On))
+                System.Diagnostics.Debug.WriteLine("No flash support!");
+            else
+                cam.FlashMode = FlashMode.On;
         }
 
           
@@ -150,7 +148,10 @@ namespace ImageProcessing
   */
         private void callback(object sender, EventArgs e)
         {
-            Globals.tickCount += 5 ;
+              //cam.Focus();
+              Globals.tickCount += 5 ;
+
+
               PhotoCamera phCam = (PhotoCamera)cam;
               //int[] ARGBPx = new int[(int)cam.PreviewResolution.Width * (int)cam.PreviewResolution.Height];
             
