@@ -24,11 +24,16 @@ namespace ImageProcessing
         private static ManualResetEvent pauseFramesEvent = new ManualResetEvent(true);
  //       private WriteableBitmap wb;
 //        private bool pumpARGBFrames;
+
         public MainPage()
         {
             InitializeComponent();
             Globals.canvas2 = canvas1;
+
+            canvas1.Background = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+
         }
+
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
            
@@ -42,8 +47,12 @@ namespace ImageProcessing
                 //Event is fired when the PhotoCamera object has been initialized
                 cam.Initialized += new EventHandler<Microsoft.Devices.CameraOperationCompletedEventArgs>(cam_Initialized);
 
+                
+
                 //Set the VideoBrush source to the camera
                 viewfinderBrush.SetSource(cam);
+
+                //to rotate the camera (upright)
                 viewfinderBrush.RelativeTransform = new CompositeTransform() { CenterX = 0.5, CenterY = 0.5, Rotation = 90 };
 
             }
@@ -81,6 +90,7 @@ namespace ImageProcessing
                 timer.Start();
             });
 
+            cam.FlashMode = FlashMode.On;
         }
 
           
@@ -138,12 +148,13 @@ namespace ImageProcessing
               });
           }
   */
-         private void callback(object sender, EventArgs e)
-          {
-              Globals.tickCount += 5 ;
+        private void callback(object sender, EventArgs e)
+        {
+            Globals.tickCount += 5 ;
               PhotoCamera phCam = (PhotoCamera)cam;
-              int[] ARGBPx = new int[(int)cam.PreviewResolution.Width * (int)cam.PreviewResolution.Height];
-           //   int[] ARGBPx = new int[640*480];
+              //int[] ARGBPx = new int[(int)cam.PreviewResolution.Width * (int)cam.PreviewResolution.Height];
+            
+             int[] ARGBPx = new int[640*480];
 
              for (int i = Globals.n1 - 1; i > 0; i--)
                   Globals.x1[i] = Globals.x1[i - 1];
@@ -151,8 +162,10 @@ namespace ImageProcessing
               pauseFramesEvent.WaitOne();
               phCam.GetPreviewBufferArgb32(ARGBPx);
               Globals.x1[0] = (ARGBPx[(int)rect1.Width*(((int)rect1.Height+1)/2)]>>16)&0xFF;
+
               Globals.lpf();
           }
+
          public static void graph()
          {
              Globals.canvas2.Children.Clear();
@@ -160,12 +173,12 @@ namespace ImageProcessing
              {
                  Line line = new Line()
                  {
-                     X1 = i + 1,
-                     Y1 = 255 - Globals.y2[i + 1]/2,
-                     X2 = i,
+                     X1 = 5*(i + 1),
+                     Y1 = 255 - Globals.y2[(i + 1)]/2,
+                     X2 = 5*i,
                      Y2 = 255 - Globals.y2[i]/2
                  };
-                 line.Stroke = new SolidColorBrush(Colors.Black);
+                 line.Stroke = new SolidColorBrush(Colors.Red);
                  line.StrokeThickness = 1;
                  line.StrokeStartLineCap = PenLineCap.Round;
                  Globals.canvas2.Children.Add(line);
