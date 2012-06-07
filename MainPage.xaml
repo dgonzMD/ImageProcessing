@@ -49,7 +49,7 @@
 
 
         <Canvas Height="300" HorizontalAlignment="Left" Margin="66,314,0,0" Name="canvas1" VerticalAlignment="Top" Width="368" Background="White" />
-        <TextBlock Height="62" HorizontalAlignment="Left" Margin="194,656,0,0" Name="textBlock1" Text="" VerticalAlignment="Top" Width="105" FontSize="36" />
+        <TextBlock Height="62" HorizontalAlignment="Left" Margin="194,656,0,0" Name="textBlock1" Text="null" VerticalAlignment="Top" Width="105" FontSize="36" />
         <!--Overlay for the viewfinder region to display grayscale WriteableBitmap objects-->
         <!--Button StackPanel to the right of viewfinder>-->
         <!--Used for debugging >-->

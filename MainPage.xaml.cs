@@ -153,7 +153,7 @@ namespace ImageProcessing
               cam.FocusAtPoint(r, r);
               r = 1 - r;
               cam.Focus();
-
+              textBlock1 = Globals.textBlock2;
               if (Globals.tickCount % 50 == 0)
               {
                   System.Diagnostics.Debug.WriteLine(st.ElapsedMilliseconds/50);

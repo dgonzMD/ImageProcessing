@@ -18,7 +18,7 @@ namespace ImageProcessing
         public static TextBlock textBlock2;
         public static long tickCount=0;
         public static int n1 = 13;
-        public static int n2 = 368;
+        public static int n2 = 33;
         public static int n3 = 5;
         public static int n4 = 32;
 
