@@ -117,7 +117,7 @@ namespace ImageProcessing
             lastPeak = MainPage.st.ElapsedMilliseconds;
 
             avgPP = (RR[0] + RR[1] + RR[2] + RR[3] + RR[4] + RR[5] + RR[6] + RR[7]) >> 3;
-            textBlock2.Text = (int)(60000 / avgPP) +"";
+     //       textBlock2.Text = (int)(60000 / avgPP) +"";
     //        lcd.print((long)60000 / avgPP);
         }
 

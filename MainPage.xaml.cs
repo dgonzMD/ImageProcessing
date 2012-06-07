@@ -91,61 +91,6 @@ namespace ImageProcessing
                 cam.FlashMode = FlashMode.On;
         }
 
-          
-          internal int ColorToGray(int color)
-          {
-              int gray = 0;
-
-              int a = color >> 24;
-              int r = (color & 0x00ff0000) >> 16;
-              int g = (color & 0x0000ff00) >> 8;
-              int b = (color & 0x000000ff);
-
-              if ((r == g) && (g == b))
-              {
-                  gray = color;
-              }
-              else
-              {
-                  // Calculate for the illumination.
-                  // I =(int)(0.109375*R + 0.59375*G + 0.296875*B + 0.5)
-                  int i = (7 * r + 38 * g + 19 * b + 32) >> 6;
-
-                  gray = ((a & 0xFF) << 24) | ((i & 0xFF) << 16) | ((i & 0xFF) << 8) | (i & 0xFF);
-              }
-              return gray;
-          }
-
-          // Start ARGB to grayscale pump.
-/*          private void GrayOn_Clicked(object sender, RoutedEventArgs e)
-          {
-              MainImage.Visibility = Visibility.Visible;
-              pumpARGBFrames = true;
-              ARGBFramesThread = new System.Threading.Thread(PumpARGBFrames);
-
-              wb = new WriteableBitmap((int)cam.PreviewResolution.Width, (int)cam.PreviewResolution.Height);
-              this.MainImage.Source = wb;
-
-              // Start pump.
-              ARGBFramesThread.Start();
-              this.Dispatcher.BeginInvoke(delegate()
-              {
-                  txtDebug.Text = "ARGB to Grayscale";
-              });
-          }
-*/
-          // Stop ARGB to grayscale pump.
- /*         private void GrayOff_Clicked(object sender, RoutedEventArgs e)
-          {
-              MainImage.Visibility = Visibility.Collapsed;
-              pumpARGBFrames = false;
-
-              this.Dispatcher.BeginInvoke(delegate()
-              {
-                  txtDebug.Text = "";
-              });
-          }
-  */
         int[] ARGBPx = new int[640 * 480];
         double r = 0;
         private void callback(object sender, EventArgs e)
@@ -168,8 +113,14 @@ namespace ImageProcessing
 
               //pauseFramesEvent.WaitOne();
               phCam.GetPreviewBufferArgb32(ARGBPx);
-              Globals.x1[0] = (ARGBPx[(int)rect1.Width*(((int)rect1.Height+1)/2)]>>16)&0xFF;
-              System.Diagnostics.Debug.WriteLine(x1[0]);
+              int tempVal = 0;
+              for (int i = 0; i < 5; i++)
+                  for (int j = 0; j < 5; j++)
+                      tempVal += (ARGBPx[j * (int)rect1.Width + i]>>16)&0xFF;
+           //  tempVal+= (ARGBPx[(int)rect1.Width*(((int)rect1.Height+1)/2 - 50+i)]>>16)&0xFF;
+              tempVal /= 25;
+              Globals.x1[0] = tempVal;
+              textBlock1.Text = Globals.x1[0]+"";
               Globals.lpf();
           }
 
