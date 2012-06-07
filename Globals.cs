@@ -70,7 +70,8 @@ namespace ImageProcessing
 
             der[0] = -y2[4] - 2 * y2[3] + 2 * y2[1] + y3[2];   //Differentiation         
 
-            integral[0] += (der[0] >> 5) + integral[1];
+            integral[0] += (der[0]) + integral[1];
+            System.Diagnostics.Debug.WriteLine(integral[0]);
             threshold();
         }
 
