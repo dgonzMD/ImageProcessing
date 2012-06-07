@@ -169,7 +169,7 @@ namespace ImageProcessing
               //pauseFramesEvent.WaitOne();
               phCam.GetPreviewBufferArgb32(ARGBPx);
               Globals.x1[0] = (ARGBPx[(int)rect1.Width*(((int)rect1.Height+1)/2)]>>16)&0xFF;
-
+              System.Diagnostics.Debug.WriteLine(x1[0]);
               Globals.lpf();
           }
 
