@@ -149,7 +149,7 @@ namespace ImageProcessing
               pauseFramesEvent.WaitOne();
               phCam.GetPreviewBufferArgb32(ARGBPx);
               Globals.x1[0] = (ARGBPx[ARGBPx.Length>>1]>>16)&0xFF;
-
+              canvas1.Children.Clear();
               for (int i = Globals.n1 - 2; i >= 0; i--)
               {
                   Line line = new Line() { X1 = i+1, Y1 = 255-Globals.x1[i+1], 
@@ -159,7 +159,6 @@ namespace ImageProcessing
                   line.StrokeStartLineCap = PenLineCap.Round;
                   this.canvas1.Children.Add(line);
               }
-
               Globals.lpf();
           }
     }
