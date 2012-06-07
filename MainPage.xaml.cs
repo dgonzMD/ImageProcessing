@@ -154,12 +154,12 @@ namespace ImageProcessing
               r = 1 - r;
               cam.Focus();
               textBlock1 = Globals.textBlock2;
-              if (Globals.tickCount % 50 == 0)
-              {
-                  System.Diagnostics.Debug.WriteLine(st.ElapsedMilliseconds/50);
-                  st.Reset();
-                  st.Start();
-              }
+              //if (Globals.tickCount % 50 == 0)
+              //{
+              //    System.Diagnostics.Debug.WriteLine(st.ElapsedMilliseconds/50);
+              //    st.Reset();
+              //    st.Start();
+              //}
 
               PhotoCamera phCam = (PhotoCamera)cam;
             
@@ -170,7 +170,7 @@ namespace ImageProcessing
               phCam.GetPreviewBufferArgb32(ARGBPx);
               Globals.x1[0] = (ARGBPx[(int)rect1.Width*(((int)rect1.Height+1)/2)]>>16)&0xFF;
 
-              //Globals.lpf();
+              Globals.lpf();
           }
 
          public static void graph()
