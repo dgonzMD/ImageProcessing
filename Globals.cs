@@ -76,34 +76,24 @@ namespace ImageProcessing
 
         public static void threshold()
         {
-            signal = y2[18];
             intWave = integral[0];
-            t1 = (avgP1 >> 1) + (avgP1 >> 2);
             t2 = (avgP2 >> 1) + (avgP2 >> 2);
             count++;
-
-            if (signal >= t1)
-                sign = (sign << 1) | 1;
-            else
-                sign = (sign << 1);
 
             if (intWave >= t2)
                 inte = (inte << 1) | 1;
             else
                 inte = (inte << 1);
 
-            m1 = Math.Max(m1, signal);
             m2 = Math.Max(m2, intWave);
 
             if (count == 32)
             {
-                if ((sign & inte) > 0 && (MainPage.st.ElapsedMilliseconds - lastPeak) > 180)
-                    peaks();
-
-                if (m1 > t1)
-                    avgP1 = (avgP1 + m1) >> 1;
                 if (m2 > t2)
+                {
                     avgP2 = (avgP2 + m2) >> 1;
+                    peaks();
+                }
 
                 count = 0;
                 m1 = m2 = 0;
@@ -111,7 +101,6 @@ namespace ImageProcessing
 
             if (MainPage.st.ElapsedMilliseconds - lastPeak > 4000)
             {
-                avgP1 = m1;
                 avgP2 = m2;
                 peaks();
             }
