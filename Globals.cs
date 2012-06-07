@@ -14,9 +14,10 @@ namespace ImageProcessing
 {
     public static class Globals
     {
+        public static Canvas canvas2;
         public static long tickCount=0;
-        public static int n1 = 368;
-        public static int n2 = 33;
+        public static int n1 = 13;
+        public static int n2 = 368;
         public static int n3 = 5;
         public static int n4 = 32;
 
@@ -52,7 +53,7 @@ namespace ImageProcessing
             for (int i = n2 - 1; i > 0; i--)
                 y2[i] = y2[i - 1];
             y2[0] = (x2[0] >> 5);
-
+            MainPage.graph();
             integration();
         }
 

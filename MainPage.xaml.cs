@@ -27,6 +27,7 @@ namespace ImageProcessing
         public MainPage()
         {
             InitializeComponent();
+            Globals.canvas2 = canvas1;
         }
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
@@ -150,17 +151,26 @@ namespace ImageProcessing
               pauseFramesEvent.WaitOne();
               phCam.GetPreviewBufferArgb32(ARGBPx);
               Globals.x1[0] = (ARGBPx[(int)rect1.Width*(((int)rect1.Height+1)/2)]>>16)&0xFF;
-              canvas1.Children.Clear();
-              for (int i = Globals.n1 - 2; i >= 0; i--)
-              {
-                  Line line = new Line() { X1 = i+1, Y1 = 255-Globals.x1[i+1], 
-                                           X2 = i, Y2 = 255-Globals.x1[i] };
-                  line.Stroke = new SolidColorBrush(Colors.Black);
-                  line.StrokeThickness = 4;
-                  line.StrokeStartLineCap = PenLineCap.Round;
-                  this.canvas1.Children.Add(line);
-              }
               Globals.lpf();
           }
+         public static void graph()
+         {
+             Globals.canvas2.Children.Clear();
+             for (int i = Globals.n2 - 2; i >= 0; i--)
+             {
+                 Line line = new Line()
+                 {
+                     X1 = i + 1,
+                     Y1 = 255 - Globals.y2[i + 1]/2,
+                     X2 = i,
+                     Y2 = 255 - Globals.y2[i]/2
+                 };
+                 line.Stroke = new SolidColorBrush(Colors.Black);
+                 line.StrokeThickness = 1;
+                 line.StrokeStartLineCap = PenLineCap.Round;
+                 Globals.canvas2.Children.Add(line);
+             }
+             
+         }
     }
 }
