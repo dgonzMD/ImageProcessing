@@ -25,13 +25,13 @@ namespace ImageProcessing
         private static ManualResetEvent pauseFramesEvent = new ManualResetEvent(true);
  //       private WriteableBitmap wb;
 //        private bool pumpARGBFrames;
-        Stopwatch st;
+        public static Stopwatch st;
 
         public MainPage()
         {
             InitializeComponent();
             Globals.canvas2 = canvas1;
-
+            Globals.textBlock2 = textBlock1;
             st = new Stopwatch();
             st.Start();
 
@@ -154,7 +154,6 @@ namespace ImageProcessing
               r = 1 - r;
               cam.Focus();
 
-              Globals.tickCount += 5 ;
               if (Globals.tickCount % 50 == 0)
               {
                   System.Diagnostics.Debug.WriteLine(st.ElapsedMilliseconds/50);

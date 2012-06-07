@@ -15,6 +15,7 @@ namespace ImageProcessing
     public static class Globals
     {
         public static Canvas canvas2;
+        public static TextBlock textBlock2;
         public static long tickCount=0;
         public static int n1 = 13;
         public static int n2 = 368;
@@ -98,7 +99,7 @@ namespace ImageProcessing
 
             if (count == 32)
             {
-                if ((sign & inte) > 0 && (Globals.tickCount - lastPeak) > 180)
+                if ((sign & inte) > 0 && (MainPage.st.ElapsedMilliseconds - lastPeak) > 180)
                     peaks();
 
                 if (m1 > t1)
@@ -110,7 +111,7 @@ namespace ImageProcessing
                 m1 = m2 = 0;
             }
 
-            if (Globals.tickCount - lastPeak > 4000)
+            if (MainPage.st.ElapsedMilliseconds - lastPeak > 4000)
             {
                 avgP1 = m1;
                 avgP2 = m2;
@@ -124,11 +125,11 @@ namespace ImageProcessing
             for (int i = 0; i < 7; i++)
                 RR[i] = RR[i + 1];
 
-            RR[7] = Globals.tickCount - lastPeak;
-            lastPeak = Globals.tickCount;
+            RR[7] = MainPage.st.ElapsedMilliseconds - lastPeak;
+            lastPeak = MainPage.st.ElapsedMilliseconds;
 
             avgPP = (RR[0] + RR[1] + RR[2] + RR[3] + RR[4] + RR[5] + RR[6] + RR[7]) >> 3;
-
+            textBlock2.Text = (int)(60000 / avgPP) +"";
     //        lcd.print((long)60000 / avgPP);
         }
 
