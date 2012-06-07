@@ -54,6 +54,7 @@ namespace ImageProcessing
             for (int i = n2 - 1; i > 0; i--)
                 y2[i] = y2[i - 1];
             y2[0] = (x2[0]);
+            System.Diagnostics.Debug.WriteLine(y2[0]);
             //MainPage.graph();
             integration();
         }
@@ -71,7 +72,6 @@ namespace ImageProcessing
             der[0] = -y2[4] - 2 * y2[3] + 2 * y2[1] + y3[2];   //Differentiation         
 
             integral[0] += (der[0]) + integral[1];
-            System.Diagnostics.Debug.WriteLine(integral[0]);
             threshold();
         }
 
